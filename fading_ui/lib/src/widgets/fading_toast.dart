@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
-import '../theme/fading_colors.dart';
-import '../theme/fading_theme.dart';
+import '../theme/fading_theme_data.dart';
+import '../theme/fading_theme_scope.dart';
 import 'fading_surface.dart';
 
 final class FadingToast {
@@ -14,6 +14,7 @@ final class FadingToast {
     required String message,
     Duration duration = const Duration(seconds: 2),
   }) {
+    final theme = FadingThemeScope.of(context);
     final OverlayState overlay = Overlay.of(context, rootOverlay: true);
 
     late final OverlayEntry entry;
@@ -22,6 +23,7 @@ final class FadingToast {
         return _FadingToastHost(
           message: message,
           duration: duration,
+          theme: theme,
           onDismissed: () {
             if (entry.mounted) {
               entry.remove();
@@ -40,11 +42,13 @@ class _FadingToastHost extends StatefulWidget {
   const _FadingToastHost({
     required this.message,
     required this.duration,
+    required this.theme,
     required this.onDismissed,
   });
 
   final String message;
   final Duration duration;
+  final FadingThemeData theme;
   final VoidCallback onDismissed;
 
   @override
@@ -113,15 +117,15 @@ class _FadingToastHostState extends State<_FadingToastHost>
                   ),
               child: FadingSurface(
                 style: FadingSurfaceStyle.raised,
-                color: FadingColors.dusk,
+                color: widget.theme.surfaceRaised,
                 borderRadius: const BorderRadius.all(Radius.circular(18)),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 12,
                 ),
                 child: DefaultTextStyle(
-                  style: FadingTheme.bodyMedium.copyWith(
-                    color: FadingColors.starlight,
+                  style: widget.theme.bodyMedium.copyWith(
+                    color: widget.theme.textPrimary,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -129,8 +133,8 @@ class _FadingToastHostState extends State<_FadingToastHost>
                       Container(
                         width: 10,
                         height: 10,
-                        decoration: const BoxDecoration(
-                          color: FadingColors.amberGlow,
+                        decoration: BoxDecoration(
+                          color: widget.theme.accent,
                           shape: BoxShape.circle,
                         ),
                       ),

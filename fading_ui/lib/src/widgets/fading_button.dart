@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../theme/fading_colors.dart';
+import '../theme/fading_theme_scope.dart';
 import 'fading_surface.dart';
 
 class FadingButton extends StatefulWidget {
@@ -26,6 +26,7 @@ class _FadingButtonState extends State<FadingButton> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = FadingThemeScope.of(context);
     final bool isEnabled = widget.enabled && widget.onPressed != null;
 
     return GestureDetector(
@@ -43,7 +44,7 @@ class _FadingButtonState extends State<FadingButton> {
           style: _isPressed
               ? FadingSurfaceStyle.inset
               : FadingSurfaceStyle.raised,
-          color: _isPressed ? FadingColors.dust : FadingColors.dusk,
+          color: _isPressed ? theme.surfaceInset : theme.surfaceRaised,
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -54,8 +55,8 @@ class _FadingButtonState extends State<FadingButton> {
               ],
               Text(
                 widget.label,
-                style: const TextStyle(
-                  color: FadingColors.starlight,
+                style: TextStyle(
+                  color: theme.textPrimary,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.4,
                 ),

@@ -1,35 +1,45 @@
 import 'package:flutter/painting.dart';
 
-import 'fading_colors.dart';
+import 'fading_theme_data.dart';
 
 final class FadingShadows {
   FadingShadows._();
 
-  static List<BoxShadow> raised({double blur = 18, double offset = 8}) {
+  static List<BoxShadow> raised({
+    FadingThemeData? theme,
+    double blur = 18,
+    double offset = 8,
+  }) {
+    final FadingThemeData activeTheme = theme ?? FadingThemeData.night;
     return <BoxShadow>[
       BoxShadow(
-        color: const Color(0xFF000000).withValues(alpha: 0.35),
+        color: activeTheme.shadowDark,
         offset: Offset(offset, offset),
         blurRadius: blur,
       ),
       BoxShadow(
-        color: const Color(0x40FFFFFF),
+        color: activeTheme.shadowLight,
         offset: Offset(-offset * 0.7, -offset * 0.7),
         blurRadius: blur,
       ),
     ];
   }
 
-  static List<BoxShadow> inset({double blur = 12, double offset = 5}) {
+  static List<BoxShadow> inset({
+    FadingThemeData? theme,
+    double blur = 12,
+    double offset = 5,
+  }) {
+    final FadingThemeData activeTheme = theme ?? FadingThemeData.night;
     return <BoxShadow>[
       BoxShadow(
-        color: const Color(0xFF000000).withValues(alpha: 0.25),
+        color: activeTheme.insetShadowDark,
         offset: Offset(offset * 0.8, offset * 0.8),
         blurRadius: blur,
         spreadRadius: -2,
       ),
-      const BoxShadow(
-        color: Color(0x33FFFFFF),
+      BoxShadow(
+        color: activeTheme.insetShadowLight,
         offset: Offset(-2, -2),
         blurRadius: 5,
         spreadRadius: -2,
@@ -37,7 +47,8 @@ final class FadingShadows {
     ];
   }
 
-  static Border side() {
-    return Border.all(color: FadingColors.border.withValues(alpha: 0.65));
+  static Border side({FadingThemeData? theme}) {
+    final FadingThemeData activeTheme = theme ?? FadingThemeData.night;
+    return Border.all(color: activeTheme.border.withValues(alpha: 0.65));
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../theme/fading_colors.dart';
-import '../theme/fading_theme.dart';
+import '../theme/fading_theme_scope.dart';
 import 'fading_surface.dart';
 
 class FadingCard extends StatelessWidget {
@@ -9,15 +8,18 @@ class FadingCard extends StatelessWidget {
     super.key,
     this.title,
     required this.child,
-    this.accentColor = FadingColors.ember,
+    this.accentColor,
   });
 
   final String? title;
   final Widget child;
-  final Color accentColor;
+  final Color? accentColor;
 
   @override
   Widget build(BuildContext context) {
+    final theme = FadingThemeScope.of(context);
+    final Color resolvedAccent = accentColor ?? theme.accentStrong;
+
     return FadingSurface(
       style: FadingSurfaceStyle.raised,
       child: Column(
@@ -32,11 +34,11 @@ class FadingCard extends StatelessWidget {
                   height: 10,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: accentColor,
+                    color: resolvedAccent,
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text(title!, style: FadingTheme.titleLarge),
+                Text(title!, style: theme.titleLarge),
               ],
             ),
             const SizedBox(height: 12),

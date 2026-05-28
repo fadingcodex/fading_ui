@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 
-import '../theme/fading_colors.dart';
-import '../theme/fading_theme.dart';
+import '../theme/fading_theme_scope.dart';
 import 'fading_surface.dart';
 
 class FadingTextField extends StatefulWidget {
@@ -70,18 +69,19 @@ class _FadingTextFieldState extends State<FadingTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = FadingThemeScope.of(context);
     final bool isFocused = _focusNode.hasFocus;
     final bool hasText = _controller.text.isNotEmpty;
 
     return FadingSurface(
       style: FadingSurfaceStyle.inset,
-      color: FadingColors.dust,
+      color: theme.surfaceInset,
       padding: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           if (widget.label != null) ...<Widget>[
-            Text(widget.label!, style: FadingTheme.labelLarge),
+            Text(widget.label!, style: theme.labelLarge),
             const SizedBox(height: 8),
           ],
           Stack(
@@ -92,13 +92,11 @@ class _FadingTextFieldState extends State<FadingTextField> {
                 child: EditableText(
                   controller: _controller,
                   focusNode: _focusNode,
-                  style: FadingTheme.bodyLarge.copyWith(
-                    color: widget.enabled
-                        ? FadingColors.starlight
-                        : FadingColors.storm,
+                  style: theme.bodyLarge.copyWith(
+                    color: widget.enabled ? theme.textPrimary : theme.textMuted,
                   ),
-                  cursorColor: FadingColors.amberGlow,
-                  backgroundCursorColor: FadingColors.dust,
+                  cursorColor: theme.accent,
+                  backgroundCursorColor: theme.surfaceInset,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                   autofocus: false,
@@ -124,9 +122,7 @@ class _FadingTextFieldState extends State<FadingTextField> {
                     ),
                     child: Text(
                       widget.hint!,
-                      style: FadingTheme.bodyMedium.copyWith(
-                        color: FadingColors.storm,
-                      ),
+                      style: theme.bodyMedium.copyWith(color: theme.textMuted),
                     ),
                   ),
                 ),
@@ -136,16 +132,12 @@ class _FadingTextFieldState extends State<FadingTextField> {
             const SizedBox(height: 6),
             Text(
               widget.errorText!,
-              style: FadingTheme.bodyMedium.copyWith(color: FadingColors.error),
+              style: theme.bodyMedium.copyWith(color: theme.error),
             ),
           ],
           if (isFocused) ...<Widget>[
             const SizedBox(height: 6),
-            Container(
-              height: 1,
-              width: double.infinity,
-              color: FadingColors.amberGlow,
-            ),
+            Container(height: 1, width: double.infinity, color: theme.accent),
           ],
         ],
       ),

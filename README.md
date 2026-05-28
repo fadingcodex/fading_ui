@@ -4,7 +4,7 @@ Neumorphic Flutter components with a sad sunset palette and retrofuturistic tone
 
 ## Features
 
-- Theme preset for a dark sunset mood.
+- Runtime day/night theme mode support.
 - Reusable raised and inset neumorphic surfaces.
 - V1 components: button, card, container surface, and text field.
 - Flutter-only implementation with no external neumorphism package.
@@ -18,15 +18,56 @@ import 'package:flutter/widgets.dart';
 import 'package:fading_ui/fading_ui.dart';
 
 WidgetsApp(
-	color: FadingColors.midnight,
+	color: FadingThemeData.night.backgroundStart,
 	pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) {
 		return PageRouteBuilder<T>(
 			settings: settings,
 			pageBuilder: (BuildContext context, _, _) => builder(context),
 		);
 	},
-	home: const MyScreen(),
+	home: const FadingThemeScope(
+		mode: FadingThemeMode.night,
+		data: FadingThemeData.night,
+		child: MyScreen(),
+	),
 )
+```
+
+Switch theme mode at runtime:
+
+```dart
+class MyApp extends StatefulWidget {
+	const MyApp({super.key});
+
+	@override
+	State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+	FadingThemeMode _mode = FadingThemeMode.night;
+
+	@override
+	Widget build(BuildContext context) {
+		final FadingThemeData theme = FadingThemeData.fromMode(_mode);
+
+		return FadingThemeScope(
+			mode: _mode,
+			data: theme,
+			child: WidgetsApp(
+				color: theme.backgroundStart,
+				home: MyScreen(
+					onToggleTheme: () {
+						setState(() {
+							_mode = _mode == FadingThemeMode.night
+								? FadingThemeMode.day
+								: FadingThemeMode.night;
+						});
+					},
+				),
+			),
+		);
+	}
+}
 ```
 
 ## Usage

@@ -16,4 +16,12 @@ final class FadingColors {
   static const Color border = Color(0xFF4B3B4E);
   static const Color success = Color(0xFF79B889);
   static const Color error = Color(0xFFD96D6D);
+
+  static const Color daybreak = Color(0xFFF8EFE4);
+  static const Color sunwash = Color(0xFFEBD9C7);
+  static const Color sand = Color(0xFFDFC6B3);
+  static const Color linen = Color(0xFFFFF8F0);
+  static const Color ink = Color(0xFF2D2332);
+  static const Color mist = Color(0xFF6F5F68);
+  static const Color dayBorder = Color(0xFFCCB19F);
 }
