@@ -18,6 +18,13 @@ final class FadingThemeData {
     required this.accentStrong,
     required this.success,
     required this.error,
+    required this.controlActive,
+    required this.controlInactive,
+    required this.controlKnob,
+    required this.progressTrack,
+    required this.progressFill,
+    required this.selectionActive,
+    required this.selectionInactive,
     required this.shadowDark,
     required this.shadowLight,
     required this.insetShadowDark,
@@ -46,6 +53,13 @@ final class FadingThemeData {
 
   final Color success;
   final Color error;
+  final Color controlActive;
+  final Color controlInactive;
+  final Color controlKnob;
+  final Color progressTrack;
+  final Color progressFill;
+  final Color selectionActive;
+  final Color selectionInactive;
 
   final Color shadowDark;
   final Color shadowLight;
@@ -72,6 +86,13 @@ final class FadingThemeData {
     accentStrong: FadingColors.ember,
     success: FadingColors.success,
     error: FadingColors.error,
+    controlActive: FadingColors.amberGlow,
+    controlInactive: FadingColors.dust,
+    controlKnob: FadingColors.starlight,
+    progressTrack: FadingColors.dust,
+    progressFill: FadingColors.roseHaze,
+    selectionActive: FadingColors.amberGlow,
+    selectionInactive: FadingColors.storm,
     shadowDark: Color(0x59000000),
     shadowLight: Color(0x40FFFFFF),
     insetShadowDark: Color(0x40000000),
@@ -126,6 +147,13 @@ final class FadingThemeData {
     accentStrong: FadingColors.ember,
     success: FadingColors.success,
     error: FadingColors.error,
+    controlActive: FadingColors.amberGlow,
+    controlInactive: FadingColors.sand,
+    controlKnob: FadingColors.linen,
+    progressTrack: FadingColors.sand,
+    progressFill: FadingColors.ember,
+    selectionActive: FadingColors.amberGlow,
+    selectionInactive: FadingColors.mist,
     shadowDark: Color(0x26000000),
     shadowLight: Color(0xB3FFFFFF),
     insetShadowDark: Color(0x1F000000),

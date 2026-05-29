@@ -68,6 +68,144 @@ void main() {
     expect(value, 'house li halan');
   });
 
+  testWidgets('checkbox emits toggled value on tap', (
+    WidgetTester tester,
+  ) async {
+    bool? nextValue;
+
+    await tester.pumpWidget(
+      buildApp(
+        FadingCheckbox(
+          label: 'Enable pulse lock',
+          value: false,
+          onChanged: (bool value) {
+            nextValue = value;
+          },
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Enable pulse lock'));
+    await tester.pumpAndSettle();
+
+    expect(nextValue, isTrue);
+  });
+
+  testWidgets('switch emits toggled value on tap', (WidgetTester tester) async {
+    bool? nextValue;
+
+    await tester.pumpWidget(
+      buildApp(
+        FadingSwitch(
+          label: 'Aux relay',
+          value: false,
+          onChanged: (bool value) {
+            nextValue = value;
+          },
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Aux relay'));
+    await tester.pumpAndSettle();
+
+    expect(nextValue, isTrue);
+  });
+
+  testWidgets('slider emits changed values when dragged', (
+    WidgetTester tester,
+  ) async {
+    double nextValue = 10;
+
+    await tester.pumpWidget(
+      buildApp(
+        FadingSlider(
+          label: 'Drive intensity',
+          min: 0,
+          max: 100,
+          value: 10,
+          onChanged: (double value) {
+            nextValue = value;
+          },
+        ),
+      ),
+    );
+
+    final Finder sliderTrack = find.descendant(
+      of: find.byType(FadingSlider),
+      matching: find.byType(GestureDetector),
+    );
+
+    await tester.drag(sliderTrack, const Offset(160, 0));
+    await tester.pumpAndSettle();
+
+    expect(nextValue, greaterThan(10));
+    expect(nextValue, lessThanOrEqualTo(100));
+  });
+
+  testWidgets('progress indicator shows circular value label', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      buildApp(
+        const FadingProgressIndicator(
+          label: 'Orbital sync',
+          value: 0.5,
+          variant: FadingProgressVariant.circular,
+        ),
+      ),
+    );
+
+    expect(find.text('Orbital sync'), findsOneWidget);
+    expect(find.text('50%'), findsOneWidget);
+  });
+
+  testWidgets('radio group emits selected option', (WidgetTester tester) async {
+    String? selected;
+
+    await tester.pumpWidget(
+      buildApp(
+        FadingRadioGroup<String>(
+          label: 'Broadcast channel',
+          value: 'Alpha',
+          onChanged: (String value) {
+            selected = value;
+          },
+          options: const <FadingRadioOption<String>>[
+            FadingRadioOption<String>(value: 'Alpha', label: 'Alpha'),
+            FadingRadioOption<String>(value: 'Beta', label: 'Beta'),
+          ],
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Beta'));
+    await tester.pumpAndSettle();
+
+    expect(selected, 'Beta');
+  });
+
+  testWidgets('tab bar emits selected index', (WidgetTester tester) async {
+    int? selectedIndex;
+
+    await tester.pumpWidget(
+      buildApp(
+        FadingTabBar(
+          tabs: const <String>['Signals', 'Telemetry', 'Archive'],
+          selectedIndex: 0,
+          onChanged: (int index) {
+            selectedIndex = index;
+          },
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Telemetry'));
+    await tester.pumpAndSettle();
+
+    expect(selectedIndex, 1);
+  });
+
   testWidgets('toast shows the provided message', (WidgetTester tester) async {
     await tester.pumpWidget(
       buildApp(
