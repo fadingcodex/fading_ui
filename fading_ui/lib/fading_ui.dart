@@ -11,5 +11,6 @@ export 'src/widgets/fading_slider.dart';
 export 'src/widgets/fading_surface.dart';
 export 'src/widgets/fading_switch.dart';
 export 'src/widgets/fading_tab_bar.dart';
+export 'src/widgets/fading_select.dart';
 export 'src/widgets/fading_toast.dart';
 export 'src/widgets/fading_text_field.dart';
