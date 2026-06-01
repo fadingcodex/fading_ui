@@ -5,12 +5,12 @@ import 'fading_theme_data.dart';
 class FadingThemeScope extends InheritedWidget {
   const FadingThemeScope({
     super.key,
-    required this.mode,
+    required this.theme,
     required this.data,
     required super.child,
   });
 
-  final FadingThemeMode mode;
+  final FadingThemeName theme;
   final FadingThemeData data;
 
   static FadingThemeScope? maybeOf(BuildContext context) {
@@ -18,15 +18,15 @@ class FadingThemeScope extends InheritedWidget {
   }
 
   static FadingThemeData of(BuildContext context) {
-    return maybeOf(context)?.data ?? FadingThemeData.night;
+    return maybeOf(context)?.data ?? FadingThemeData.abyss;
   }
 
-  static FadingThemeMode modeOf(BuildContext context) {
-    return maybeOf(context)?.mode ?? FadingThemeMode.night;
+  static FadingThemeName themeOf(BuildContext context) {
+    return maybeOf(context)?.theme ?? FadingThemeName.abyss;
   }
 
   @override
   bool updateShouldNotify(covariant FadingThemeScope oldWidget) {
-    return oldWidget.mode != mode || oldWidget.data != data;
+    return oldWidget.theme != theme || oldWidget.data != data;
   }
 }

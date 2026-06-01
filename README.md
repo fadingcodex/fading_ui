@@ -1,10 +1,10 @@
 # fading_ui
 
-Neumorphic Flutter components with a sad sunset palette and retrofuturistic tone.
+Neumorphic Flutter components with Diaspora and Imperium theme groups in a retrofuturistic tone.
 
 ## Features
 
-- Runtime day/night theme mode support through `FadingThemeScope`.
+- Runtime grouped theme support through `FadingThemeScope`.
 - Reusable raised and inset neumorphic surfaces.
 - Material and Cupertino free.
 - Core components: button, card, surface, toast, and text field.
@@ -22,10 +22,10 @@ import 'package:fading_ui/fading_ui.dart';
 
 Widget buildApp() {
 	return FadingThemeScope(
-		mode: FadingThemeMode.night,
-		data: FadingThemeData.night,
+		theme: FadingThemeName.abyss,
+		data: FadingThemeData.abyss,
 		child: WidgetsApp(
-			color: FadingThemeData.night.backgroundStart,
+			color: FadingThemeData.abyss.backgroundStart,
 			debugShowCheckedModeBanner: false,
 			pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) {
 				return PageRouteBuilder<T>(
@@ -39,7 +39,7 @@ Widget buildApp() {
 }
 ```
 
-Switch theme mode at runtime:
+Switch themes at runtime:
 
 ```dart
 class MyApp extends StatefulWidget {
@@ -50,14 +50,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-	FadingThemeMode _mode = FadingThemeMode.night;
+	FadingThemeName _theme = FadingThemeName.abyss;
 
 	@override
 	Widget build(BuildContext context) {
-		final FadingThemeData theme = FadingThemeData.fromMode(_mode);
+		final FadingThemeData theme = FadingThemeData.fromTheme(_theme);
 
 		return FadingThemeScope(
-			mode: _mode,
+			theme: _theme,
 			data: theme,
 			child: WidgetsApp(
 				color: theme.backgroundStart,
@@ -65,9 +65,9 @@ class _MyAppState extends State<MyApp> {
 				home: MyScreen(
 					onToggleTheme: () {
 						setState(() {
-							_mode = _mode == FadingThemeMode.night
-								? FadingThemeMode.day
-								: FadingThemeMode.night;
+							_theme = _theme == FadingThemeName.abyss
+								? FadingThemeName.dawn
+								: FadingThemeName.abyss;
 						});
 					},
 				),
@@ -126,7 +126,7 @@ Column(
 
 ## Theme
 
-`FadingThemeData` provides day and night palettes plus semantic tokens for text, surfaces, controls, and progress states. Use `FadingThemeData.fromMode(...)` to switch between the built-in themes, or construct your own theme data if you want a custom palette.
+`FadingThemeData` provides four built-in palettes grouped into Diaspora (`Dawn`, `Abyss`) and Imperium (`Hope`, `Dream`) plus semantic tokens for text, surfaces, controls, and progress states. Use `FadingThemeData.fromTheme(...)` to switch between the built-in themes, or construct your own theme data if you want a custom palette.
 
 ## Public API
 

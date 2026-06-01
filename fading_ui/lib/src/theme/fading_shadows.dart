@@ -10,7 +10,7 @@ final class FadingShadows {
     double blur = 18,
     double offset = 8,
   }) {
-    final FadingThemeData activeTheme = theme ?? FadingThemeData.night;
+    final FadingThemeData activeTheme = theme ?? FadingThemeData.abyss;
     return <BoxShadow>[
       BoxShadow(
         color: activeTheme.shadowDark,
@@ -30,7 +30,7 @@ final class FadingShadows {
     double blur = 12,
     double offset = 5,
   }) {
-    final FadingThemeData activeTheme = theme ?? FadingThemeData.night;
+    final FadingThemeData activeTheme = theme ?? FadingThemeData.abyss;
     return <BoxShadow>[
       BoxShadow(
         color: activeTheme.insetShadowDark,
@@ -48,7 +48,7 @@ final class FadingShadows {
   }
 
   static Border side({FadingThemeData? theme}) {
-    final FadingThemeData activeTheme = theme ?? FadingThemeData.night;
+    final FadingThemeData activeTheme = theme ?? FadingThemeData.abyss;
     return Border.all(color: activeTheme.border.withValues(alpha: 0.65));
   }
 }

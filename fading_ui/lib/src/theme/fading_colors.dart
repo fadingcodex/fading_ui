@@ -24,4 +24,20 @@ final class FadingColors {
   static const Color ink = Color(0xFF2D2332);
   static const Color mist = Color(0xFF6F5F68);
   static const Color dayBorder = Color(0xFFCCB19F);
+
+  static const Color imperialGold = Color(0xFFD1A446);
+  static const Color imperialOchre = Color(0xFFB6812B);
+  static const Color imperialBronze = Color(0xFF7B5A3A);
+  static const Color imperialSilver = Color(0xFFD3D2D0);
+  static const Color imperialCharcoal = Color(0xFF26282E);
+  static const Color imperialBlack = Color(0xFF121317);
+  static const Color imperialBorder = Color(0xFF5C4C35);
+
+  static const Color dreamCream = Color(0xFFF5EBDD);
+  static const Color dreamBeige = Color(0xFFE0D1BF);
+  static const Color dreamSlate = Color(0xFF6B7480);
+  static const Color dreamSteel = Color(0xFF8F99A6);
+  static const Color dreamCharcoal = Color(0xFF2C3139);
+  static const Color dreamWhite = Color(0xFFF8F8F6);
+  static const Color dreamBorder = Color(0xFFB6AA9C);
 }
