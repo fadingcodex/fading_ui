@@ -8,6 +8,7 @@ export 'src/widgets/fading_checkbox.dart';
 export 'src/widgets/fading_progress_indicator.dart';
 export 'src/widgets/fading_radio_group.dart';
 export 'src/widgets/fading_modal.dart';
+export 'src/widgets/fading_snackbar.dart';
 export 'src/widgets/fading_slider.dart';
 export 'src/widgets/fading_surface.dart';
 export 'src/widgets/fading_switch.dart';
