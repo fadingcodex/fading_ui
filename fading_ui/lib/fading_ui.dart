@@ -5,6 +5,7 @@ export 'src/theme/fading_theme.dart';
 export 'src/widgets/fading_button.dart';
 export 'src/widgets/fading_card.dart';
 export 'src/widgets/fading_checkbox.dart';
+export 'src/widgets/fading_chips.dart';
 export 'src/widgets/fading_progress_indicator.dart';
 export 'src/widgets/fading_radio_group.dart';
 export 'src/widgets/fading_modal.dart';
