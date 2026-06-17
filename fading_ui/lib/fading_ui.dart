@@ -6,6 +6,7 @@ export 'src/widgets/fading_button.dart';
 export 'src/widgets/fading_card.dart';
 export 'src/widgets/fading_checkbox.dart';
 export 'src/widgets/fading_chips.dart';
+export 'src/widgets/fading_date_picker.dart';
 export 'src/widgets/fading_data_table.dart';
 export 'src/widgets/fading_pagination.dart';
 export 'src/widgets/fading_progress_indicator.dart';
