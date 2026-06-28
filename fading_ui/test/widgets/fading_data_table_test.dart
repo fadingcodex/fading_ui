@@ -17,6 +17,8 @@ void main() {
     const _TableRow('Kite', 58, 'Stable'),
     const _TableRow('Aster', 72, 'Stable'),
     const _TableRow('Pyre', 90, 'Critical'),
+    const _TableRow('Blaze', 65, 'Warning'),
+    const _TableRow('Nova', 83, 'Critical'),
   ];
 
   List<FadingDataColumn<_TableRow>> buildColumns() {
@@ -198,5 +200,153 @@ void main() {
     );
 
     expect(find.text('Nothing to display'), findsOneWidget);
+  });
+
+  testWidgets('data table integrates pagination and changes visible rows', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      buildApp(
+        FadingDataTable<_TableRow>(
+          rows: rows,
+          columns: buildColumns(),
+          rowsPerPage: 2,
+        ),
+      ),
+    );
+
+    expect(find.byType(FadingPagination), findsOneWidget);
+    expect(find.text('Kite'), findsOneWidget);
+    expect(find.text('Aster'), findsOneWidget);
+    expect(find.text('Pyre'), findsNothing);
+
+    await tester.tap(
+      find.byKey(const ValueKey<String>('fading-pagination-next')),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Kite'), findsNothing);
+    expect(find.text('Pyre'), findsOneWidget);
+    expect(find.text('Blaze'), findsOneWidget);
+  });
+
+  testWidgets('data table emits query changes for sort and pagination', (
+    WidgetTester tester,
+  ) async {
+    final List<FadingDataTableQuery> queries = <FadingDataTableQuery>[];
+
+    await tester.pumpWidget(
+      buildApp(
+        FadingDataTable<_TableRow>(
+          rows: rows,
+          columns: buildColumns(),
+          rowsPerPage: 2,
+          onQueryChanged: (FadingDataTableQuery query) {
+            queries.add(query);
+          },
+        ),
+      ),
+    );
+
+    await tester.tap(
+      find.byKey(const ValueKey<String>('fading-data-table-header-1')),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      find.byKey(const ValueKey<String>('fading-pagination-next')),
+    );
+    await tester.pumpAndSettle();
+
+    expect(queries.length, greaterThanOrEqualTo(2));
+    expect(queries[0].sortColumnIndex, 1);
+    expect(queries[0].sortAscending, true);
+    expect(queries.last.page, 2);
+    expect(queries.last.rowsPerPage, 2);
+  });
+
+  testWidgets('data table emits column width changes while resizing', (
+    WidgetTester tester,
+  ) async {
+    Map<int, double>? emitted;
+
+    final List<FadingDataColumn<_TableRow>> resizableColumns =
+        <FadingDataColumn<_TableRow>>[
+          FadingDataColumn<_TableRow>(
+            label: 'Node',
+            resizable: true,
+            width: 120,
+            cellBuilder: (BuildContext context, _TableRow row) {
+              final FadingThemeData theme = FadingThemeScope.of(context);
+              return Text(row.node, style: theme.bodyMedium);
+            },
+          ),
+          FadingDataColumn<_TableRow>(
+            label: 'Throughput',
+            numeric: true,
+            cellBuilder: (BuildContext context, _TableRow row) {
+              final FadingThemeData theme = FadingThemeScope.of(context);
+              return Text('${row.throughput}', style: theme.bodyMedium);
+            },
+          ),
+        ];
+
+    await tester.pumpWidget(
+      buildApp(
+        FadingDataTable<_TableRow>(
+          rows: rows,
+          columns: resizableColumns,
+          onColumnWidthsChanged: (Map<int, double> widths) {
+            emitted = widths;
+          },
+        ),
+      ),
+    );
+
+    await tester.drag(
+      find.byKey(const ValueKey<String>('fading-data-table-resize-handle-0')),
+      const Offset(30, 0),
+    );
+    await tester.pumpAndSettle();
+
+    expect(emitted, isNotNull);
+    expect(emitted!.containsKey(0), isTrue);
+    expect(emitted![0]! > 120, isTrue);
+  });
+
+  testWidgets('data table applies explicit header and cell alignment', (
+    WidgetTester tester,
+  ) async {
+    final List<FadingDataColumn<_TableRow>> alignedColumns =
+        <FadingDataColumn<_TableRow>>[
+          FadingDataColumn<_TableRow>(
+            label: 'Node',
+            headerAlignment: Alignment.center,
+            cellAlignment: Alignment.center,
+            cellBuilder: (BuildContext context, _TableRow row) {
+              final FadingThemeData theme = FadingThemeScope.of(context);
+              return Text(row.node, style: theme.bodyMedium);
+            },
+          ),
+          FadingDataColumn<_TableRow>(
+            label: 'Status',
+            cellBuilder: (BuildContext context, _TableRow row) {
+              final FadingThemeData theme = FadingThemeScope.of(context);
+              return Text(row.status, style: theme.bodyMedium);
+            },
+          ),
+        ];
+
+    await tester.pumpWidget(
+      buildApp(FadingDataTable<_TableRow>(rows: rows, columns: alignedColumns)),
+    );
+
+    final Align headerAlign = tester.widget<Align>(
+      find
+          .ancestor(of: find.text('Node').first, matching: find.byType(Align))
+          .first,
+    );
+
+    expect(headerAlign.alignment, Alignment.center);
   });
 }
