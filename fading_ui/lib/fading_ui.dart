@@ -2,6 +2,7 @@ export 'src/theme/fading_colors.dart';
 export 'src/theme/fading_theme_data.dart';
 export 'src/theme/fading_theme_scope.dart';
 export 'src/theme/fading_theme.dart';
+export 'src/widgets/fading_accordion.dart';
 export 'src/widgets/fading_button.dart';
 export 'src/widgets/fading_card.dart';
 export 'src/widgets/fading_checkbox.dart';
