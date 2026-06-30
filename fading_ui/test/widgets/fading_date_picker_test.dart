@@ -14,6 +14,11 @@ const ValueKey<String> _monthLabelKey = ValueKey<String>(
   'fading-date-picker-month-label',
 );
 
+String _monthLabelText(WidgetTester tester) {
+  final Text label = tester.widget<Text>(find.byKey(_monthLabelKey));
+  return label.data ?? '';
+}
+
 void main() {
   testWidgets('renders label and initial selected date', (
     WidgetTester tester,
@@ -79,35 +84,17 @@ void main() {
       ),
     );
 
-    expect(
-      find.descendant(
-        of: find.byKey(_monthLabelKey),
-        matching: find.text('June 2026'),
-      ),
-      findsOneWidget,
-    );
+    expect(_monthLabelText(tester), 'June 2026');
 
     await tester.tap(find.byKey(_nextMonthKey));
     await tester.pumpAndSettle();
 
-    expect(
-      find.descendant(
-        of: find.byKey(_monthLabelKey),
-        matching: find.text('July 2026'),
-      ),
-      findsOneWidget,
-    );
+    expect(_monthLabelText(tester), 'July 2026');
 
     await tester.tap(find.byKey(_previousMonthKey));
     await tester.pumpAndSettle();
 
-    expect(
-      find.descendant(
-        of: find.byKey(_monthLabelKey),
-        matching: find.text('June 2026'),
-      ),
-      findsOneWidget,
-    );
+    expect(_monthLabelText(tester), 'June 2026');
   });
 
   testWidgets('disabled picker ignores day taps', (WidgetTester tester) async {
