@@ -2,7 +2,7 @@
 
 This page is the canonical home for theme information. Related docs:
 
-- [README.md](../README.md)
+- [Inicio](../README.md)
 - [Widget roadmap](roadmap.md)
 
 The package now uses two theme groups.
