@@ -4,6 +4,21 @@ import '../theme/fading_theme_data.dart';
 import '../theme/fading_theme_scope.dart';
 import 'fading_surface.dart';
 
+class FadingBreadcrumbItem {
+  const FadingBreadcrumbItem({
+    required this.label,
+    this.leading,
+    this.enabled = true,
+  });
+
+  final String label;
+  final Widget? leading;
+  final bool enabled;
+}
+
+typedef FadingBreadcrumbSeparatorBuilder =
+    Widget Function(BuildContext context, int index, FadingThemeData theme);
+
 class FadingBreadcrumbs extends StatelessWidget {
   const FadingBreadcrumbs({
     super.key,
@@ -12,23 +27,26 @@ class FadingBreadcrumbs extends StatelessWidget {
     required this.onChanged,
     this.label,
     this.enabled = true,
+    this.separatorBuilder,
   }) : assert(items.length > 0, 'items must not be empty'),
        assert(
          currentIndex >= 0 && currentIndex < items.length,
          'currentIndex must be within items range',
        );
 
-  final List<String> items;
+  final List<Object> items;
   final int currentIndex;
   final ValueChanged<int>? onChanged;
   final String? label;
   final bool enabled;
+  final FadingBreadcrumbSeparatorBuilder? separatorBuilder;
 
   bool get _isEnabled => enabled && onChanged != null;
 
   @override
   Widget build(BuildContext context) {
     final FadingThemeData theme = FadingThemeScope.of(context);
+    final List<FadingBreadcrumbItem> normalizedItems = _normalizedItems();
 
     return Opacity(
       opacity: _isEnabled ? 1 : 0.5,
@@ -52,9 +70,13 @@ class FadingBreadcrumbs extends StatelessWidget {
               runSpacing: 6,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                for (var index = 0; index < items.length; index++) ...<Widget>[
-                  if (index > 0) _buildSeparator(theme, index),
-                  _buildItem(theme, index),
+                for (
+                  var index = 0;
+                  index < normalizedItems.length;
+                  index++
+                ) ...<Widget>[
+                  if (index > 0) _buildSeparator(context, theme, index),
+                  _buildItem(theme, normalizedItems[index], index),
                 ],
               ],
             ),
@@ -64,7 +86,32 @@ class FadingBreadcrumbs extends StatelessWidget {
     );
   }
 
-  Widget _buildSeparator(FadingThemeData theme, int index) {
+  List<FadingBreadcrumbItem> _normalizedItems() {
+    return items.map((Object item) {
+      if (item is FadingBreadcrumbItem) {
+        return item;
+      }
+      if (item is! String) {
+        throw ArgumentError(
+          'items must contain only String or FadingBreadcrumbItem values',
+        );
+      }
+      return FadingBreadcrumbItem(label: item);
+    }).toList();
+  }
+
+  Widget _buildSeparator(
+    BuildContext context,
+    FadingThemeData theme,
+    int index,
+  ) {
+    if (separatorBuilder != null) {
+      return KeyedSubtree(
+        key: ValueKey<String>('fading-breadcrumbs-separator-$index'),
+        child: separatorBuilder!(context, index, theme),
+      );
+    }
+
     return Text(
       '/',
       key: ValueKey<String>('fading-breadcrumbs-separator-$index'),
@@ -75,11 +122,15 @@ class FadingBreadcrumbs extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(FadingThemeData theme, int index) {
+  Widget _buildItem(
+    FadingThemeData theme,
+    FadingBreadcrumbItem item,
+    int index,
+  ) {
     final bool selected = index == currentIndex;
-    final VoidCallback? onTap = _isEnabled && !selected
-        ? () => _emitIndex(index)
-        : null;
+    final bool itemEnabled = item.enabled;
+    final bool interactive = _isEnabled && itemEnabled && !selected;
+    final VoidCallback? onTap = interactive ? () => _emitIndex(index) : null;
 
     return GestureDetector(
       key: ValueKey<String>('fading-breadcrumbs-item-$index'),
@@ -93,12 +144,23 @@ class FadingBreadcrumbs extends StatelessWidget {
           color: selected ? theme.selectionActive : const Color(0x00000000),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text(
-          items[index],
-          style: theme.bodyMedium.copyWith(
-            color: selected ? theme.controlKnob : theme.textPrimary,
-            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            if (item.leading != null) ...<Widget>[
+              item.leading!,
+              const SizedBox(width: 8),
+            ],
+            Text(
+              item.label,
+              style: theme.bodyMedium.copyWith(
+                color: itemEnabled
+                    ? (selected ? theme.controlKnob : theme.textPrimary)
+                    : theme.textMuted,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -108,7 +170,11 @@ class FadingBreadcrumbs extends StatelessWidget {
     if (!_isEnabled || index == currentIndex) {
       return;
     }
-    if (index < 0 || index >= items.length) {
+    final List<FadingBreadcrumbItem> normalizedItems = _normalizedItems();
+    if (index < 0 || index >= normalizedItems.length) {
+      return;
+    }
+    if (!normalizedItems[index].enabled) {
       return;
     }
     onChanged?.call(index);
