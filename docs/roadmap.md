@@ -30,8 +30,8 @@
 | FadingBottomSheet | To-do 🛠️ | Partial-height action/content panel. |
 | FadingDrawer | To-do 🛠️ | Side navigation and quick actions. |
 | FadingMenu | To-do 🛠️ | Anchored contextual menu and action list. |
-| FadingBreadcrumbs | To-do 🛠️ | Hierarchical path navigation. |
-| FadingBadge | To-do 🛠️ | Count/status marker for icons and labels. |
+| FadingBreadcrumbs | Implemented ✅ | Hierarchical path navigation. |
+| FadingBadge | Implemented ✅ | Compact tone-based status label for badges and counts. |
 | FadingAutocomplete | To-do 🛠️ | Type-ahead text suggestions. |
 | FadingMultiSelect | To-do 🛠️ | Multi-select dropdown/list input. |
 | FadingRangeSlider | To-do 🛠️ | Min/max range selection. |
@@ -126,6 +126,10 @@ Complements snackbar usage for less intrusive feedback.
 Context hint shown on hover, focus, or long press.
 Improves discoverability for icon-only or compact controls.
 
+#### FadingBadge
+Compact status badge for short labels and semantic states.
+Supports neutral, success, warning, and critical tone variants.
+
 ### Progress, date, time, and data
 
 #### FadingProgressIndicator
@@ -164,9 +168,6 @@ Anchored menu/popover for contextual actions from icon buttons and row menus.
 
 ### FadingBreadcrumbs
 Lightweight path navigation for dashboard/admin page hierarchies.
-
-### FadingBadge
-Count/status marker for unread indicators and object states.
 
 ## Form and input expansion
 
