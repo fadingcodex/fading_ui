@@ -68,6 +68,47 @@ void main() {
     expect((criticalContainer.decoration! as BoxDecoration).color, theme.error);
   });
 
+  testWidgets('badge can use basic color source', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      buildApp(
+        const Column(
+          children: <Widget>[
+            FadingBadge(
+              label: 'Neutral',
+              colorSource: FadingBadgeColorSource.basic,
+            ),
+            FadingBadge(
+              label: 'Warning',
+              tone: FadingBadgeTone.warning,
+              colorSource: FadingBadgeColorSource.basic,
+            ),
+          ],
+        ),
+      ),
+    );
+
+    final Finder badgeFinder = find.byType(FadingBadge);
+    final Container neutralContainer = tester.widget<Container>(
+      find
+          .descendant(of: badgeFinder.at(0), matching: find.byType(Container))
+          .first,
+    );
+    final Container warningContainer = tester.widget<Container>(
+      find
+          .descendant(of: badgeFinder.at(1), matching: find.byType(Container))
+          .first,
+    );
+
+    expect(
+      (neutralContainer.decoration! as BoxDecoration).color,
+      FadingColors.daybreak,
+    );
+    expect(
+      (warningContainer.decoration! as BoxDecoration).color,
+      FadingColors.amberGlow,
+    );
+  });
+
   testWidgets('badge handles long labels without overflow exceptions', (
     WidgetTester tester,
   ) async {

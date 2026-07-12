@@ -10,6 +10,7 @@ Components and widgets inspired on Fading Suns, the TTRPG game.
 - Core components: button, card, surface, toast, and text field.
 - Selection and control components: checkbox, switch, slider, radio group, and tab bar.
 - Progress components: linear and circular progress indicators.
+- Badge supports `basic` fixed colors or `theme`-derived colors.
 - Flutter-only implementation with no external neumorphism package.
 
 ## Documentation
