@@ -13,6 +13,10 @@ Components and widgets inspired on Fading Suns, the TTRPG game.
 - Badge supports `basic` fixed colors or `theme`-derived colors.
 - Flutter-only implementation with no external neumorphism package.
 
+## Demo
+
+Check out demo app in [fading_ui_demo](https://github.com/fadingcodex/fading_ui_demo) that showcases the full widget set and allows manual switching between Diaspora and Imperium themes.
+
 ## Documentation
 
 - [Roadmap](docs/roadmap.md) for implemented widgets, planned widgets, and design direction.
