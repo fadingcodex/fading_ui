@@ -13,6 +13,7 @@ export 'src/widgets/fading_date_picker.dart';
 export 'src/widgets/fading_data_table.dart';
 export 'src/widgets/fading_pagination.dart';
 export 'src/widgets/fading_progress_indicator.dart';
+export 'src/widgets/fading_range_slider.dart';
 export 'src/widgets/fading_radio_group.dart';
 export 'src/widgets/fading_modal.dart';
 export 'src/widgets/fading_multi_select.dart';

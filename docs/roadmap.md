@@ -33,8 +33,8 @@
 | FadingBreadcrumbs | Implemented ✅ | Hierarchical path navigation. |
 | FadingBadge | Implemented ✅ | Compact tone-based status label for badges and counts. |
 | FadingAutocomplete | To-do 🛠️ | Type-ahead text suggestions. |
-| FadingMultiSelect | To-do 🛠️ | Multi-select dropdown/list input. |
-| FadingRangeSlider | To-do 🛠️ | Min/max range selection. |
+| FadingMultiSelect | Implemented ✅ | Multi-select dropdown/list input. |
+| FadingRangeSlider | Implemented ✅ | Min/max range selection. |
 | FadingFieldGroup | To-do 🛠️ | Labeled/validated form field grouping. |
 | FadingOTPField | To-do 🛠️ | Multi-cell one-time code input. |
 | FadingSkeleton | To-do 🛠️ | Loading placeholders for content. |
@@ -89,6 +89,10 @@ Ensures form controls remain visually consistent across platforms.
 #### FadingSlider
 Continuous value input for ranges such as volume, opacity, or thresholds.
 Uses package theme tokens for track, thumb, and active states.
+
+#### FadingRangeSlider
+Dual-thumb slider for selecting min and max values in a range.
+Ideal for price filters, date range pickers, and threshold selection workflows.
 
 #### FadingChips
 Selectable and filter chips for tags and quick multi-select.
@@ -176,9 +180,6 @@ Type-ahead text field with keyboard navigation and async options support.
 
 ### FadingMultiSelect
 Multi-value selection control (dropdown/chips hybrid).
-
-### FadingRangeSlider
-Dual-thumb slider for selecting min and max values.
 
 ### FadingFieldGroup
 Reusable wrapper for label, helper text, error text, and validation state.
