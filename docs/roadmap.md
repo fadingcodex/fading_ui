@@ -41,7 +41,7 @@
 | FadingEmptyState | To-do 🛠️ | Empty/no-data UX pattern. |
 | FadingTimeline | To-do 🛠️ | Ordered event/activity display. |
 | FadingStatCard | To-do 🛠️ | KPI card with trend and metadata. |
-| FadingInlineBanner | To-do 🛠️ | Inline page-level message/alert block. |
+| FadingInlineBanner | Implemented ✅ | Inline page-level message/alert block. |
 | FadingAppBar | To-do 🛠️ | Consistent top navigation/title bar. |
 | FadingPageScaffold | To-do 🛠️ | Standardized page shell/layout slots. |
 | FadingSplitPane | To-do 🛠️ | Resizable two-pane layout. |
@@ -98,11 +98,19 @@ Ideal for price filters, date range pickers, and threshold selection workflows.
 Selectable and filter chips for tags and quick multi-select.
 Supports compact interaction patterns for dense UIs.
 
+#### FadingMultiSelect
+Multi-value selection control for choosing several options from a dropdown/list.
+Complements FadingSelect for forms that accept more than one value.
+
 ### Navigation and structure
 
 #### FadingTabBar
 Tabbed navigation component for section switching.
 Strong fit for compact screen-level navigation.
+
+#### FadingBreadcrumbs
+Hierarchical path navigation for dashboard and admin page hierarchies.
+Supports a compact representation of the current location.
 
 #### FadingAccordion
 Expandable/collapsible sections with animated transitions.
@@ -126,13 +134,13 @@ Supports persistent-action feedback patterns.
 Lightweight transient notification for brief status updates.
 Complements snackbar usage for less intrusive feedback.
 
-#### FadingTooltip
-Context hint shown on hover, focus, or long press.
-Improves discoverability for icon-only or compact controls.
-
 #### FadingBadge
 Compact status badge for short labels and semantic states.
 Supports neutral, success, warning, and critical tone variants.
+
+#### FadingInlineBanner
+Inline informational or status message for page content.
+Supports neutral, success, warning, and critical tones.
 
 ### Progress, date, time, and data
 
@@ -170,16 +178,10 @@ Side panel for navigation and persistent app actions.
 ### FadingMenu
 Anchored menu/popover for contextual actions from icon buttons and row menus.
 
-### FadingBreadcrumbs
-Lightweight path navigation for dashboard/admin page hierarchies.
-
 ## Form and input expansion
 
 ### FadingAutocomplete
 Type-ahead text field with keyboard navigation and async options support.
-
-### FadingMultiSelect
-Multi-value selection control (dropdown/chips hybrid).
 
 ### FadingFieldGroup
 Reusable wrapper for label, helper text, error text, and validation state.
@@ -200,9 +202,6 @@ Chronological event feed for activity and history views.
 
 ### FadingStatCard
 Compact KPI card with optional trend indicator and sparkline area.
-
-### FadingInlineBanner
-In-content informational/warning/success banner with optional actions.
 
 ## Layout primitives
 
