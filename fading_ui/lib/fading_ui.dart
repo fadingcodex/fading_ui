@@ -12,6 +12,7 @@ export 'src/widgets/fading_chips.dart';
 export 'src/widgets/fading_date_picker.dart';
 export 'src/widgets/fading_data_table.dart';
 export 'src/widgets/fading_inline_banner.dart';
+export 'src/widgets/fading_empty_state.dart';
 export 'src/widgets/fading_pagination.dart';
 export 'src/widgets/fading_progress_indicator.dart';
 export 'src/widgets/fading_range_slider.dart';

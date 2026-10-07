@@ -38,7 +38,7 @@
 | FadingFieldGroup | To-do 🛠️ | Labeled/validated form field grouping. |
 | FadingOTPField | To-do 🛠️ | Multi-cell one-time code input. |
 | FadingSkeleton | To-do 🛠️ | Loading placeholders for content. |
-| FadingEmptyState | To-do 🛠️ | Empty/no-data UX pattern. |
+| FadingEmptyState | Implemented ✅ | Empty/no-data UX pattern with semantic tones and actions. |
 | FadingTimeline | To-do 🛠️ | Ordered event/activity display. |
 | FadingStatCard | To-do 🛠️ | KPI card with trend and metadata. |
 | FadingInlineBanner | Implemented ✅ | Inline page-level message/alert block. |
@@ -141,6 +141,10 @@ Supports neutral, success, warning, and critical tone variants.
 #### FadingInlineBanner
 Inline informational or status message for page content.
 Supports neutral, success, warning, and critical tones.
+
+#### FadingEmptyState
+Centered empty/no-data state with optional message, illustration, and actions.
+Supports compact layouts and neutral, success, warning, and critical tones.
 
 ### Progress, date, time, and data
 

@@ -22,6 +22,26 @@ Check out demo app in [fading_ui_demo](https://github.com/fadingcodex/fading_ui_
 - [Roadmap](docs/roadmap.md) for implemented widgets, planned widgets, and design direction.
 - [Theme guide](docs/theme.md) for theme groups, API direction, and color reference.
 
+## Testing and Widgetbook Workflow
+
+Use tests for behavior and Widgetbook for visual/manual review.
+
+- Behavioral checks (required): run `flutter test` in `fading_ui`.
+- Story checks (required): run `flutter analyze` in `fading_ui_demo/widgetbook`.
+- Manual visual checks (recommended): run `flutter run -d chrome` in `fading_ui_demo/widgetbook`.
+
+Coverage matrix for the initial Widgetbook rollout:
+
+| Widget | Behavioral source of truth | Widgetbook visual states |
+|---|---|---|
+| FadingButton | `fading_ui/test/widgets/fading_button_test.dart` | Interactive, Disabled |
+| FadingTextField | `fading_ui/test/widgets/fading_text_field_test.dart` | Interactive, Error |
+
+Contribution rule for low maintenance:
+
+- Every new public widget should add one focused widget test file and one canonical Widgetbook story.
+- Do not duplicate full test permutations in stories; only include states that improve design review.
+
 ## Getting started
 
 Add the package to your app and apply the theme:
@@ -68,8 +88,8 @@ Widget buildApp() {
 			value: 0.6,
 			label: 'Telemetry',
 		),
-	],
-)
+	),
+}
 ```
 
 ## Public API
