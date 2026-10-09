@@ -27,4 +27,5 @@ export 'src/widgets/fading_tab_bar.dart';
 export 'src/widgets/fading_select.dart';
 export 'src/widgets/fading_toast.dart';
 export 'src/widgets/fading_time_picker.dart';
+export 'src/widgets/fading_timeline.dart';
 export 'src/widgets/fading_text_field.dart';
